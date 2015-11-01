@@ -34,11 +34,11 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
               <li>
-                <a href="#" class="dropdown-toggle">选择学生</a>
+                <a href="teach_manage.php" class="dropdown-toggle">选择学生</a>
               </li>
 
               <li>
-                <a href="">注销登录</a>
+                <a class="logout">注销登录</a>
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -89,7 +89,7 @@
             <div style="height: 400px;">
               <!-- 个人信息左侧 -->
               <div class="personal-infro-l col-md-3">
-                <img src="images/id-photo.jpg"  alt="..." class="img-rounded" id="stu-photo" style="width: 127px;
+                <img src=""  alt="..." class="img-rounded" id="stu-photo" style="width: 127px;
                 height: 178px;" alt="登记照片，由注册中心、教务处、研究生院以及人事处负责维护个别的照片更新。">
                 <br>
                 <span style="margin-left: 20px;
@@ -222,7 +222,7 @@
                                 <div class="" style="width: 172px;display: inline-block;margin: 10px;">
                                   <label for="message-text" class="control-label">类别:</label>
                                   <select type="button" class="btn btn-default dropdown-toggle btn-lg course-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 172px;height: 34px;border-radius: 4px;font-size: 14px;" id="add_data_grade_kind">
-                                    <option value=1><a href="#" selected="selected">基础课</a></option>
+                                    <option value=1 selected="selected"><a href="#">基础课</a></option>
                                     <option value=2><a href="#">专业课</a></option>
                                     <option value=3><a href="#">必选课</a></option>
                                     <option value=4><a href="#">任选课</a></option>
@@ -492,12 +492,12 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
-          </div><!-- 右侧内容部分 社会实践 -->
+              </divid          </div><!-- 右侧内容部分 社会实践 -->
 
 
         </div><!-- container-fluid -->
       </div><!-- row -->
+    </div>
 <script type="text/javascript" src="./js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="./js/bootstrap.js"></script>
 <script type="text/javascript" src="./js/teach_onload.js"></script>

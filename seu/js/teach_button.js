@@ -387,21 +387,5 @@ $("#add_data_prac_save").click(function(){
 
 
 
-//选择学期时，加载学科
-$("#add_data_grade_term,#add_data_grade_kind").change(function(){
-	$.post(
-	"./php/returnClass.php",
-	{
-		term:$("#add_data_grade_term option:selected").val(),
-		kind:$("#add_data_grade_kind option:selected").val()
-	},function(a){
-		var data = JSON.parse(a);
-		$("#add_data_grade_course").empty();//清空course下拉框
-		for (i in data) {
-			$("#add_data_grade_course").append("<option><a href='#'>"+
-				data[i]+"</a></option>"); 
-		};
-	});
-});
 
 

@@ -188,6 +188,6 @@ $(function(){
 //登出
 $(".logout").click(function(){
 	if (confirm("确定要退出账号吗？")) {
-	$(".logout").attr("href", './login/login.html');
+	$(".logout").attr("href", './login/login.php');
 	};
 })

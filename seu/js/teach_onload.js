@@ -60,6 +60,21 @@ $(function(){
 
 //个人成绩 页面初始加载信息
 $(function(){
+	//加成学科
+	$.post(
+		"./php/returnClass.php",
+		{
+			term:$("#add_data_grade_term option:selected").val(),
+			kind:$("#add_data_grade_kind option:selected").val()
+		},function(a){
+			var data = JSON.parse(a);
+			$("#add_data_grade_course").empty();//清空course下拉框
+			for (i in data) {
+				$("#add_data_grade_course").append("<option><a href='#'>"+
+					data[i]+"</a></option>"); 
+			};
+		});
+
 	// 加载个人成绩
 	$.post(
 	"./php/stuScore.php",
@@ -97,6 +112,22 @@ $(function(){
 				});
 			};
 		});
+	});
+});
+//选择学期时，加载学科
+$("#add_data_grade_term,#add_data_grade_kind").change(function(){
+	$.post(
+	"./php/returnClass.php",
+	{
+		term:$("#add_data_grade_term option:selected").val(),
+		kind:$("#add_data_grade_kind option:selected").val()
+	},function(a){
+		var data = JSON.parse(a);
+		$("#add_data_grade_course").empty();//清空course下拉框
+		for (i in data) {
+			$("#add_data_grade_course").append("<option><a href='#'>"+
+				data[i]+"</a></option>"); 
+		};
 	});
 });
 
@@ -169,8 +200,9 @@ $(function(){
 		};
 		//修改社会实践
 		//加载社会实践修改框内容
-		$(".change_data_prac").click(function(){
+		$(".change_data_prac").on("click",function(){
 			var _this=$(this);
+			$(".change_data_prac_save").attr("data-id",$(_this.parent().parent()).attr("data-id"));
 			$.post("./php/reloadSocial.php", 
 				{id:$(_this.parent().parent()).attr("data-id")},
 				function(a){
@@ -193,12 +225,12 @@ $(function(){
 				})
 		})
 		//修改社会实践内容
-		$("#change_data_prac_save").click(function(){
+		$("#change_data_prac_save").on("click",function(){
 			var _this=$(this);
 			if (confirm('确定要修改本条数据嘛？')){
 				$.post("./php/updateSocial.php", 
 				{
-					id:$("#change_data_prac").parent().parent().attr("data-id"),
+					id:$(_this).attr("data-id"),
 					date:$("#change_data_prac_date").val(),
 					kind:$("#change_data_prac_kind option:selected").val(),
 					grade:$("#change_data_prac_grade").val(),
@@ -232,7 +264,7 @@ $(function(){
 			};
 		});
 		//社会实践删除按钮
-		$(".del_data_prac").click(function(){
+		$(".del_data_prac").on("click",function(){
 			if (confirm('确定要删除本条数据嘛？'))
 			{ 
 				var _this=$(this);
@@ -274,8 +306,9 @@ $(function(){
 		};
 		//科技竞赛修改
 		//加载科技竞赛修改框内容
-		$(".change_data_tech").click(function(){
+		$(".change_data_tech").on("click",function(){
 			var _this=$(this);
+			$(".change_data_tech_save").attr("data-id",$(_this.parent().parent()).attr("data-id"));
 			$.post("./php/reloadSci.php", 
 				{id:$(_this.parent().parent()).attr("data-id")},
 				function(a){
@@ -308,12 +341,12 @@ $(function(){
 		})
 
 		//修改科技竞赛内容
-		$("#change_data_tech_save").click(function(){
+		$("#change_data_tech_save").on("click",function(){
 			var _this=$(this);
 			if (confirm('确定要修改本条数据嘛？')){
 				$.post("./php/updateSci.php", 
 				{
-					id:$(_this.parent().parent()).attr("data-id"),
+					id:$(_this).attr("data-id"),
 					time:$("#change_data_tech_time").val(),
 					kind:$("#change_data_tech_kind option:selected").val(),
 					grade:$("#change_data_tech_grade").val(),
@@ -327,7 +360,7 @@ $(function(){
 						$("#content_tech tbody").empty();
 						// 加载科技竞赛
 						$.post(
-							"url",
+							"./php/stuSci.php",
 							{},function(a){
 								var data = JSON.parse(a);
 
@@ -347,7 +380,7 @@ $(function(){
 			};
 		});
 		//科技竞赛删除按钮
-		$(".del_data_tech").click(function(){
+		$(".del_data_tech").on("click",function(){
 			var _this=$(this);
 			if (confirm("确定要删除本条数据嘛？"))
 			{
@@ -371,25 +404,25 @@ $(function(){
 
 
 //选择左侧边栏，显示页面
-	$("#tab_mypage").click(function(){
+	$("#tab_mypage").on("click",function(){
 		$("#sidebar-left li").attr("class","");
 		$("#tab_mypage").attr("class", "item_active");
 		$(".main").css("display","none");
 		$("#content_mypage").css("display", "block");
 	});
-	$("#tab_grade").click(function(){
+	$("#tab_grade").on("click",function(){
 		$("#sidebar-left li").attr("class","");
 		$("#tab_grade").attr("class", "item_active");
 		$(".main").css("display","none");
 		$("#content_grade").css("display", "block");
 	});
-	$("#tab_tech").click(function(){
+	$("#tab_tech").on("click",function(){
 		$("#sidebar-left li").attr("class","");
 		$("#tab_tech").attr("class", "item_active");
 		$(".main").css("display","none");
 		$("#content_tech").css("display", "block");
 	});
-	$("#tab_prac").click(function(){
+	$("#tab_prac").on("click",function(){
 		$("#sidebar-left li").attr("class","");
 		$("#tab_prac").attr("class", "item_active");
 		$(".main").css("display","none");
@@ -399,14 +432,14 @@ $(function(){
 
 
 //登出
-$(".logout").click(function(){
+$(".logout").on("click",function(){
 	if (confirm("确定要退出账号吗？")) {
-	$(".logout").attr("href", './login/index.html');
+	$(".logout").attr("href", './login/login.php');
 	};
 })
 
 //修改密码
-$(".change_psw_btn").click(function(){
+$(".change_psw_btn").on("click",function(){
 	$('#change_psw').modal('show')
 })
 

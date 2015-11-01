@@ -40,7 +40,7 @@ $("#btn-change").bind("click", function (){
 				student_infro[_this.attr('data-value')]=_this.val();
 			});
 			$.post(
-				"./phpangeElement.php",
+				"./php/changeElement.php",
 				{
 					name:$("#infro-name").val(),
 					stuid:$("#infro-stuid").val(),

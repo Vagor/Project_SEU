@@ -383,7 +383,7 @@
             $sex = check_input($sex);
             $blood_type = check_input($blood_type);
             $religion = check_input($religion);
-            $sql = "UPDATE student SET name = $name,department = $department,nation = $nation,birth = $birth,hometown = $hometown,country = $country,stu_id = $stu_id,major = $major,sex = $sex,blood_type = $blood_type,religion = $religion";
+            $sql = "UPDATE student SET name = $name,department = $department,nation = $nation,birth = $birth,hometown = $hometown,country = $country,stu_id = $stu_id,major = $major,sex = $sex,blood_type = $blood_type,religion = $religion WHERE uid = $uid";
             if(mysql_query($sql))
             {
                 return 1;
@@ -871,8 +871,8 @@
         $a = 5 - $num % 5;
         while($a--)
         {
-            $back[$num]["uid"] = NULL;
-            $back[$num++]["name"] = NULL;        
+            $back[$num]["uid"] = "  ";
+            $back[$num++]["name"] = "   ";        
         }
 
         return $back;

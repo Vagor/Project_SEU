@@ -37,11 +37,11 @@
 
             <ul class="nav navbar-nav navbar-right">
               <li>
-                <a href="#" class="dropdown-toggle">选择学生</a>
+                <a href="teach_manage.php" class="dropdown-toggle">选择学生</a>
               </li>
 
               <li>
-                <a href="">注销登录</a>
+                <a class="logout">注销登录</a>
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
@@ -89,11 +89,11 @@
               </select>
               <select type="button" class="btn btn-default dropdown-toggle btn-lg pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_class">
                 <option><a href="#" selected="selected">班级</a></option>
-                <option><a href="#" value=1>1班</a></option>
-                <option><a href="#" value=2>2班</a></option>
-                <option><a href="#" value=3>3班</a></option>
-                <option><a href="#" value=4>4班</a></option>
-                <option><a href="#" value=5>5班</a></option>
+                <option value=1><a href="#">1班</a></option>
+                <option value=2><a href="#">2班</a></option>
+                <option value=3><a href="#">3班</a></option>
+                <option value=4><a href="#">4班</a></option>
+                <option value=5><a href="#">5班</a></option>
               </select>
               <button type="button" class="btn btn-default btn-sm" id="stu_search" style="margin-left: 20px;">搜索</button>
 
