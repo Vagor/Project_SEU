@@ -1,5 +1,7 @@
 <?php
 
+    error_reporting(E_ALL&~E_NOTICE);
+
     function urlChange($url)
     {
         header("Location: ".$url); 
@@ -125,7 +127,7 @@
         $arr = @mysql_fetch_assoc($res);
         $back = array(
                 "kind" => $arr["type"],
-                "data" => $arr["time"],
+                "date" => $arr["time"],
                 "grade" => $arr["score"],
                 "place" => $arr["location"],
                 "content" => $arr["content"]
@@ -151,14 +153,17 @@
             $sql2 = "SELECT $name,id FROM $table WHERE uid = $uid";
             $res2 = mysql_query($sql2);
             $arr2 = @mysql_fetch_assoc($res2);
-            $back[$num] = array(
-                    "id" => $arr2["id"],
-                    "course" => $arr["class_name"],
-                    "credit" => $arr["credit"],
-                    "grade" => $arr2[$name],
-                    "kind" => $kind
-                );
-            $num++;
+            if($arr2[$name]){
+                 $back[$num] = array(
+                        "id" => $arr2["id"],
+                        "course" => $arr["class_name"],
+                        "credit" => $arr["credit"],
+                        "grade" => $arr2[$name],
+                        "kind" => $kind
+                    );
+                 $num++;
+             }
+            
         }
         return $back;
     }
@@ -593,7 +598,7 @@
         if(mysql_query($sql))
         {
             addMessage($uid,3,1);
-            addAverage($uid,$semester,$type_name);
+            addAverage($uid,$semester,$class_type);
             group($uid,$semester);
             return 1;
         }else{
@@ -650,7 +655,8 @@
     {
     	$average = 0;
     	$credit = 0;
-    	$type = getClassTypeByTypeName($type_name);
+    	//$type = getClassTypeByTypeName($type_name);
+        $type = $type_name;
     	$table = getTableName($semester,$type);
     	$sql = "SELECT name,credit FROM class WHERE semester = $semester AND class_type = $type";
     	$res = mysql_query($sql);
@@ -791,7 +797,7 @@
         $back = array(
                 "id" => $arr["id"],
                 "place" => $arr["location"],
-                "data" => $arr["time"],
+                "date" => $arr["time"],
                 "content" => $arr["content"],
                 "grade" => $arr["score"],
                 "kind" => $arr["type"]
@@ -872,7 +878,7 @@
         while($a--)
         {
             $back[$num]["uid"] = "  ";
-            $back[$num++]["name"] = "   ";        
+            $back[$num++]["name"] = "       ";        
         }
 
         return $back;

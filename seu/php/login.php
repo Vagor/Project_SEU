@@ -26,7 +26,7 @@
 			$tid = @mysql_fetch_assoc($res)["id"];
 			session_start();
 			$_SESSION["tid"] = $uid;
-			urlChange("../teach_index.php");
+			urlChange("../teach_manage.php");
 		}
 	}
  ?>

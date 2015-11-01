@@ -492,7 +492,7 @@
                     </tbody>
                   </table>
                 </div>
-              </divid          </div><!-- 右侧内容部分 社会实践 -->
+             </div><!-- 右侧内容部分 社会实践 -->
 
 
         </div><!-- container-fluid -->
