@@ -66,13 +66,13 @@
 
               <select type="button" class="btn btn-default dropdown-toggle btn-lg course-kind pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_year">
                 <option><a href="#" value=1 selected="selected">入学年份</a></option>
-                <option><a href="#" value=2>2009学年</a></option>
-                <option><a href="#" value=3>2010学年</a></option>
-                <option><a href="#" value=4>2011学年</a></option>
-                <option><a href="#" value=5>2012学年</a></option>
-                <option><a href="#" value=6>2013学年</a></option>
-                <option><a href="#" value=7>2014学年</a></option>
-                <option><a href="#" value=8>2015学年</a></option>
+                <option><a href="#" value=2>2009</a></option>
+                <option><a href="#" value=3>2010</a></option>
+                <option><a href="#" value=4>2011</a></option>
+                <option><a href="#" value=5>2012</a></option>
+                <option><a href="#" value=6>2013</a></option>
+                <option><a href="#" value=7>2014</a></option>
+                <option><a href="#" value=8>2015</a></option>
               </select>
               <select type="button" class="btn btn-default dropdown-toggle btn-lg course-kind pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_college">
                 <option><a href="#" value=1 selected="selected">学院</a></option>
@@ -87,13 +87,13 @@
               <select type="button" class="btn btn-default dropdown-toggle btn-lg course-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_major">
               <option><a href="#" value=1 selected="selected">&nbsp;专业&nbsp;</a></option>
               </select>
-              <select type="button" class="btn btn-default dropdown-toggle btn-lg course-kind pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_kind">
-                <option><a href="#" selected="selected">课程类型</a></option>
-                <option><a href="#" value=1>专业课</a></option>
-                <option><a href="#" value=2>必选课</a></option>
-                <option><a href="#" value=3>任选课</a></option>
-                <option><a href="#" value=4>人文课</a></option>
-                <option><a href="#" value=5>基础课</a></option>
+              <select type="button" class="btn btn-default dropdown-toggle btn-lg pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_class">
+                <option><a href="#" selected="selected">班级</a></option>
+                <option><a href="#" value=1>1班</a></option>
+                <option><a href="#" value=2>2班</a></option>
+                <option><a href="#" value=3>3班</a></option>
+                <option><a href="#" value=4>4班</a></option>
+                <option><a href="#" value=5>5班</a></option>
               </select>
               <button type="button" class="btn btn-default btn-sm" id="stu_search" style="margin-left: 20px;">搜索</button>
 
@@ -113,13 +113,7 @@
                   <thead>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td><a>小A</a></td> 
-                      <td>小B</td>
-                      <td>小B</td>
-                      <td>小B</td>
-                      <td>小B</td>
-                    </tr>
+                    
                   </tbody>
                 </table>
               </div>

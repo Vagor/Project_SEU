@@ -1,7 +1,7 @@
 //显示专业
 
 $("#select_college").change(function(){
-	$.post("url", {
+	$.post("./php/returnMajor.php", {
 		college:$("#select_college option:selected").text(),
 	}, function(a){
 		var data = JSON.parse(a);
@@ -20,7 +20,7 @@ $('#stu_search').click(function(){
 		year:$("#select_year option:selected").text(),
 		college:$("#select_college option:selected").text(),
 		major:$("#select_major option:selected").text(),
-		kind:$("#select_kind option:selected").val(),
+		class:$("#select_class option:selected").val(),
 	}, function(a){
 		var data = JSON.parse(a);
 		var row = data.length/5;
