@@ -3,8 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="./things/css" rel="stylesheet" type="text/css">
-<link data-turbolinks-track="true" href="./things/bootstrap.css" media="all" rel="stylesheet">
+<link data-turbolinks-track="true" href="./things/bootstrap.min.css" media="all" rel="stylesheet">
+<link data-turbolinks-track="true" href="./things/local.css" media="all" rel="stylesheet">
 <script data-turbolinks-track="true" src="./things/jquery-1.11.1.js"></script>
+<script data-turbolinks-track="true" src="./things/bootstrap.js"></script>
+
 </head>
 
 <body class="">
@@ -15,15 +18,14 @@
           <div class="row">
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 logo pull-left logo-enc">
               <a href="./things/The Ultimate Startup Launch Plan _ Edison.html">
-                <img alt="Logo" class="logo-img" src="seu-logo.png">
+              <a href="http://math.seu.edu.cn"><img alt="Logo" class="logo-img" src="seu-logo.png"/></a>
               </a>
             </div>
-
               <nav class="col-xs-12 col-sm-9 col-md-9  col-lg-8 pull-right navigation-enc">
                 <ul class="navigation">
-                  <li><a href="#">了解系统</a></li>
-                  <li><a href="#">关于我们</a></li>
-                  <li><a href="#">@东南大学数学系</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#aboutsys">了解系统</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#aboutus">关于我们</a></li>
+                  <li><a href="http://math.seu.edu.cn">@东南大学数学系</a></li>
                 </ul>
               </nav>
             </div>
@@ -184,7 +186,41 @@
       </div>
     </div>
 
+            <!-- 了解系统Modal -->
+              <div class="modal fade" id="aboutsys" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">了解系统</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>在这一段时间，我用了大学生综合素质考评系统，着实给我的工作减轻了不少压力，我能够更便捷地区分出那些综合能力强的学生，并选取他们进入实验室。这让实验室的学习氛围变得更加浓厚了！</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">好的</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- 了解系统Modal -->
 
+              <!-- 关于我们Modal -->
+              <div class="modal fade" id="aboutus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">关于我们</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>在这一段时间，我用了大学生综合素质考评系统，着实给我的工作减轻了不少压力，我能够更便捷地区分出那些综合能力强的学生，并选取他们进入实验室。这让实验室的学习氛围变得更加浓厚了！</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">好的</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- 关于我们Modal -->
 
 
 

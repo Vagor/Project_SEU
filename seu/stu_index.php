@@ -28,45 +28,19 @@
             </button>
             <a class="navbar-brand" href="#" id="brand">大学生综合素质考评系统</a>
           </div>
-              <!-- 修改密码Modal -->
-                      <div class="modal fade" id="change_psw" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                          </div>
-                          <div class="modal-body">
-                            ...
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                      <!-- 修改密码Modal -->
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
             <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">信息 <span class="badge">3</span><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">您的微积分成绩在9:15有的新的更改</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">您的社会实践项目在18:30增加了一条数据</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">您的科技竞赛项目在21:00增加了一条数据</a></li>
-                </ul>
+              <li class="dropdown" id="msgbox">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">信息 <span class="badge" id='msgnum'></span><span class="caret"></span></a>
+
 
               </li>
               <li class="dropdown">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="username"></a>
                 <ul class="dropdown-menu">
-                  <li class="change_psw_btn"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span> &nbsp;修改密码</a></li>
                   <li><a href="./stu_index.php"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp;个人信息</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a class="logout" href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> &nbsp;注销帐号</a></li>
@@ -122,7 +96,7 @@
             <div style="height: 400px;">
               <!-- 个人信息左侧 -->
               <div class="personal-infro-l col-md-3">
-                <img src="images/id-photo.jpg"  alt="..." class="img-rounded" id="stu-photo" style="width: 127px;
+                <img src=""  alt="..." class="img-rounded" id="stu-photo" style="width: 127px;
                 height: 178px;" alt="登记照片，由注册中心、教务处、研究生院以及人事处负责维护个别的照片更新。">
                 <br>
                 <span style="margin-left: 20px;
@@ -211,11 +185,11 @@
               <select type="button" class="btn btn-default dropdown-toggle btn-lg course-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_term">
               </select>
               <select type="button" class="btn btn-default dropdown-toggle btn-lg course-kind pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_kind">
-                <option><a href="#" value=1 selected="selected">基础课</a></option>
-                <option><a href="#" value=2>专业课</a></option>
-                <option><a href="#" value=3>必选课</a></option>
-                <option><a href="#" value=4>任选课</a></option>
-                <option><a href="#" value=5>人文课</a></option>
+                <option value=1  selected="selected"><a href="#">基础课</a></option>
+                <option value=2><a href="#">专业课</a></option>
+                <option value=3><a href="#">必选课</a></option>
+                <option value=4><a href="#">任选课</a></option>
+                <option value=5><a href="#">人文课</a></option>
               </select>
             </div>
 

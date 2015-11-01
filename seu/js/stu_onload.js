@@ -6,7 +6,7 @@ $(function(){
 	{},function(a){
 		var data= JSON.parse(a);
 		var year = data.year;//入学年份
-			$("#select_term,#add_data_grade_term").append("<option value=1>"+parseInt(year)
+			$("#select_term,#add_data_grade_term").append("<option value=1 selected='selected'>"+parseInt(year)
 			+"年秋季</option><option value=2>"+(++year)
 			+"年春季</option><option value=3>"+(year)
 			+"年秋季</option><option value=4>"+(++year)
@@ -75,7 +75,7 @@ $(function(){
 				+"</td><td>"+data[i]['credit']	
 				+"</td><td>"+data[i]['grade']
 				+"</td><td>"+data[i]['kind']
-				+"<td><a  class='pull-right del_data_grade' style='margin-right: 5px;'>删除</a></td></tr>"
+				+"</td></tr>"
 				);
 		};
 	});
@@ -125,7 +125,7 @@ $(function(){
 					+"</td><td>"+data[i]['place']
 					+"</td><td>"+data[i]['content']
 					+"</td><td>"+data[i]['grade']
-					+"</td><td><a href='#' class='change_data_prac pull-right' data-toggle='modal' data-target='#change_prac' style='margin-right: 5px;'>修改</a><a href='#' class='del_data_prac pull-right' style='margin-right: 5px;'>删除</a></td></tr>"
+					+"</td></tr>"
 				);
 			
 		};
@@ -148,7 +148,7 @@ $(function(){
 				+"</td><td>"+data[i]['time']
 				+"</td><td>"+data[i]['result']
 				+"</td><td>"+data[i]['grade']
-				+"</td><td><a href='#' class='add_data_tech pull-right' data-toggle='modal' data-target='#change_tech' style='margin-right: 5px;'>修改</a><a href='#' class='pull-right del_data_tech' style='margin-right: 5px;'>删除</a></td></tr>"
+				+"</td></tr>"
 				);
 		};
 		
@@ -190,4 +190,45 @@ $(".logout").click(function(){
 	if (confirm("确定要退出账号吗？")) {
 	$(".logout").attr("href", './login/login.php');
 	};
-})
+});
+
+
+//加载信息盒子
+$(function(){
+	$.post("./php/returnMessage.php", {},function(a){
+		data=JSON.parse(a);
+		if (data.length==0) {$("#msgnum").html("0");}
+		else{
+			$("#msgnum").html(data.length);
+			$("#msgbox").append('<ul class="dropdown-menu">');
+			for (var i = 0; i < data.length; i++) {
+				$("#msgbox").append("<li>"+data[i]+"</li>")
+			};
+			$("#msgbox").append('</ul>');
+		};
+	});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
