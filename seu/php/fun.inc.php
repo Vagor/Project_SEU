@@ -18,6 +18,7 @@
         }
         return $value;
     }
+
     /*
          下面的函数都是为了各个页面的显示
 
@@ -61,6 +62,15 @@
         $res = mysql_query($sql);
         $arr = @mysql_fetch_assoc($res);
         return $arr["class_name"];
+    }
+
+    //返回入学年份
+    function returnYear($uid)
+    {
+        $sql = "SELECT year FROM student WHERE uid = $uid";
+        $res = mysql_query($sql);
+        $year = @mysql_fetch_assoc($res)["year"];
+        return $year;
     }
 
 
@@ -128,7 +138,7 @@
     //由uid,学期,课程类型获取个人成绩内容
     function getScore($uid,$semester,$class_name)
     {
-        //$class_type = getIdByClass_type($class_name);
+       // $class_type = getIdByClass_type($class_name);
         $class_type = $class_name;
         $num = 0;
         $table = getTableName($semester,$class_type);
@@ -240,6 +250,15 @@
     //根据uid获取个人主页内容
     function getElement($uid)
     {
+
+    	$sql = "SELECT year FROM student WHERE uid = $uid";
+        $res = mysql_query($sql);
+        $year = mysql_fetch_assoc($res)["year"];
+       	$semester = returnSemester(date("Y-m-d",time()),$year);
+       	$sql = "UPDATE student SET semester = $semester WHERE uid = $uid";
+       	mysql_query($sql);
+
+
         $sql = "SELECT * FROM student WHERE uid = $uid";
         $res = mysql_query($sql);
         $arr = @mysql_fetch_assoc($res);
@@ -375,9 +394,9 @@
     }
 
     //老师添加学生科技竞赛
-    function insertSciElement($uid,$tid,$name,$time,$result,$score,$type,$semester)
+    function insertSciElement($uid,$tid,$name,$time,$result,$score,$type)
     {
-        if(!empty($uid) && !empty($tid) && !empty($name) && !empty($time) && !empty($result) && !empty($score) && !empty($type) && !empty($semester))
+        if(!empty($uid) && !empty($tid) && !empty($name) && !empty($time) && !empty($result) && !empty($score) && !empty($type))
         {
             $uid = check_input($uid);
             $tid = check_input($tid);
@@ -386,7 +405,12 @@
             $result = check_input($result);
             $score = check_input($score);
             $type = check_input($type);
-            $semester = check_input($semester);
+
+            $sql = "SELECT year FROM student WHERE uid = $uid";
+            $res = mysql_query($sql);
+            $year = mysql_fetch_assoc($res)["year"];
+            $semester = returnSemester($time,$year);
+
             $sql = "INSERT INTO science(uid,tid,name,time,result,score,type,semester) VALUES($uid,$tid,$name,$time,$result,$score,$type,$semester)";
             if(mysql_query($sql))
             {
@@ -404,9 +428,9 @@
     }
 
     //老师修改学生科技竞赛
-    function updateSciElement($uid,$id,$name,$time,$result,$score,$type,$semester)
+    function updateSciElement($uid,$id,$name,$time,$result,$score,$type)
     {
-        if(isset($id) && isset($name) && isset($time) && isset($result) && isset($score) && isset($type) && isset($semester))
+        if(isset($id) && isset($name) && isset($time) && isset($result) && isset($score) && isset($type))
         {
             $id = check_input($id);
             $name = check_input($name);
@@ -414,7 +438,11 @@
             $result = check_input($result);
             $score = check_input($score);
             $type = check_input($type);
-            $semester = check_input($semester);
+
+            $year = returnYear($uid);
+            $semester = returnSemester($time,$year);
+
+
             $sql = "UPDATE science SET name = $name,time = $time,result = $result,score = $score,type = $type,semester = $semester WHERE id = $id";
             if(mysql_query($sql))
             {
@@ -426,7 +454,7 @@
                 return 0;
             }
         }else{
-            return 0;
+            return 3;
         }
         
     }
@@ -452,9 +480,9 @@
     }
 
     //老师添加学生社会活动
-    function insertSocialElement($uid,$tid,$time,$location,$content,$score,$type,$semester)
+    function insertSocialElement($uid,$tid,$time,$location,$content,$score,$type)
     {
-        if(isset($uid) && isset($tid) && isset($time) && isset($location) && isset($content) && isset($score) && isset($type) && isset($semester))
+        if(isset($uid) && isset($tid) && isset($time) && isset($location) && isset($content) && isset($score) && isset($type))
         {
             $uid = check_input($uid);
             $tid = check_input($tid);
@@ -463,7 +491,11 @@
             $content = check_input($content);
             $score = check_input($score);
             $type = check_input($type);
-            $semester = check_input($semester);
+           
+            $sql = "SELECT year FROM student WHERE uid = $uid";
+            $res = mysql_query($sql);
+            $year = mysql_fetch_assoc($res)["year"];
+            $semester = returnSemester($time,$year);
 
             $sql = "INSERT INTO social_activity(uid,tid,time,location,content,score,type,semester) VALUES($uid,$tid,$time,$location,$content,$score,$type,$semester)";
             if(mysql_query($sql))
@@ -480,7 +512,7 @@
     }
 
     //老师修改学生社会活动
-    function updateSocialElement($id,$tid,$time,$type,$score,$location,$content)
+    function updateSocialElement($id,$uid,$tid,$time,$type,$score,$location,$content)
     {
         if(isset($id) && isset($tid) && isset($time) && isset($type) && isset($score) && isset($location) && isset($content))
         {
@@ -491,7 +523,11 @@
             $score = check_input($score);
             $location = check_input($location);
             $content = check_input($content);
-            $sql = "UPDATE social_activity SET tid = $tid,time = $time,type = $type,score = $score,location = $location,content = $content WHERE id = $id";
+
+            $year = returnYear($uid);
+            $semester = returnSemester($time,$year);
+
+            $sql = "UPDATE social_activity SET tid = $tid,time = $time,type = $type,score = $score,location = $location,content = $content semester = $semester WHERE id = $id";
             if(!mysql_query($sql))
                 return 0;
         }else{
@@ -572,7 +608,8 @@
     //修改一条个人成绩即修改数据表中一条字段
     function updateScore($uid,$semester,$type_name,$class_chinese_name,$score)
     {
-        $type = getClassTypeByTypeName($type_name);
+        //$type = getClassTypeByTypeName($type_name);
+        $type = $type_name;
         $table = getTableName($semester,$type);
         $class_type = getClassEnglishName($class_chinese_name);
         $sql = "UPDATE $table SET $class_type = $score WHERE uid = $uid";
@@ -585,7 +622,7 @@
     //增添一条个人成绩即修改数据表中一条字段
     function addScore($uid,$semester,$type_name,$class_chinese_name,$score)
     {
-       // $type = getClassTypeByTypeName($type_name);
+        //$type = getClassTypeByTypeName($type_name);
         $type = $type_name;
         $table = getTableName($semester,$type);
         $class_type = getClassEnglishName($class_chinese_name);
@@ -718,14 +755,15 @@
             $str = "你有一条社会实践记录被修改";
         else if($type == 3 && $object == 3)
             $str = "你有一条社会实践记录被删除";
-    
+        
         $sql = "INSERT INTO unread(uid,message,status) VALUES($uid,'$str',1)";
-    
         if(mysql_query($sql))
             return 1;
         else 
             return 0;
     }
+
+
 
     //修改时返回id对应的数据
     function returnSci($id)
@@ -780,5 +818,63 @@
             return 1;
         else
             return 0;
+    }
+
+	//根据入学年份返回学期对应数字1-8
+	function returnSemester($time,$year)
+	{
+		$now = date("Y",strtotime($time));
+		$semester = $now - $year;
+		$month = date("m",strtotime($time));
+		if($semester > 1)
+			$semester = $semester*2 - 1;
+		if($semester)
+		{
+			if($month < 9)
+				$semester++;
+			else if($month >= 9)
+				$semester += 2;
+		}else{
+			$semester = 1;
+		}
+		return $semester;
+	}
+	
+    //由学院中文名返回对应专业
+    function returnMajor($college_name)
+    {
+        $sql = "SELECT id FROM college WHERE college = '$college_name'";
+        $res = mysql_query($sql);
+        $id = @mysql_fetch_assoc($res)["id"];
+        $sql = "SELECT major FROM major WHERE college_id = $id";
+        $res = mysql_query($sql);
+        $num = 0;
+        while($arr = @mysql_fetch_assoc($res))
+        {
+            $back[$num++] = $arr["major"];
+        }
+        return $back;
+    }
+
+    //返回学生姓名以及uid
+    function returnStu($college,$major,$year,$class)
+    {
+        $sql = "SELECT name,uid FROM student WHERE year = $year AND department = '$college' AND major = '$major' AND class = $class";
+   
+        $res = mysql_query($sql);
+        $num = 0;
+        while ($arr = @mysql_fetch_assoc($res)) {
+            $back[$num]["uid"] = $arr["uid"];
+            $back[$num++]["name"] = $arr["name"];
+        }
+
+        $a = 5 - $num % 5;
+        while($a--)
+        {
+            $back[$num]["uid"] = NULL;
+            $back[$num++]["name"] = NULL;        
+        }
+
+        return $back;
     }
 ?>

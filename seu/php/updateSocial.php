@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	$uid = $_SESSION["uid"];
 	header("Content-Type:text/plain;charset=utf-8");
 	include_once 'fun.inc.php';
 	linkDB();
@@ -15,13 +14,15 @@
 */
 
 	$id = $_POST["id"];
+	$uid = $_SESSION["uid"];
 	$tid = $_SESSION["tid"];
 	$time = $_POST["date"];
 	$type = $_POST["kind"];
 	$score = $_POST["grade"];
 	$location = $_POST["place"];
 	$content = $_POST["content"];
-	$res = updateSocialElement($id,$tid,$time,$type,$score,$location,$content);
+	
+	$res = updateSocialElement($id,$uid,$tid,$time,$type,$score,$location,$content);
 	$data = array("success" => $res);
 	echo json_encode($data,JSON_UNESCAPED_UNICODE);
 ?>

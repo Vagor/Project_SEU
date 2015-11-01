@@ -12,7 +12,6 @@
 	$result = $_POST["result"];
 	$score = $_POST["grade"];
 	$type = $_POST["kind"];
-	$semester = 1;
 /*
 	$uid = 1;
 	$id = 6;
@@ -24,7 +23,7 @@
 	$semester = 1;
 */
 
-	$res = updateSciElement($uid,$id,$name,$time,$result,$score,$type,$semester);
+	$res = updateSciElement($uid,$id,$name,$time,$result,$score,$type);
 	$data = array("success" => $res);
 	echo json_encode($data,JSON_UNESCAPED_UNICODE);
 ?>
