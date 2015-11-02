@@ -245,7 +245,7 @@ $("#add_data_tech_save").on("click",function(){
 								+"</td><td>"+data[i]['time']
 								+"</td><td>"+data[i]['result']
 								+"</td><td>"+data[i]['grade']
-								+"</td><td><a href='#' class='add_data_tech pull-right' data-toggle='modal' data-target='#change_tech' style='margin-right: 5px;'>修改</a><a href='#' class='pull-right del_data_tech' style='margin-right: 5px;'>删除</a></td></tr>"
+								+"</td><td><a href='#' class='change_data_tech pull-right' data-toggle='modal' data-target='#change_tech' style='margin-right: 5px;'>修改</a><a href='#' class='pull-right del_data_tech' style='margin-right: 5px;'>删除</a></td></tr>"
 								);
 						};	
 					});
@@ -353,27 +353,6 @@ $("#content_prac").on("click","#change_data_prac_save",function(){
 		});
 	};
 });
-//社会实践删除按钮
-$("#content_prac").on("click",".del_data_prac",function(){
-	if (confirm('确定要删除本条数据嘛？'))
-	{ 
-		var _this=$(this);
-		$(_this.parent().parent()).remove();
-		$.post("./php/delSocial.php", 
-		{
-			id:$(_this.parent().parent()).attr("data-id")
-		}, 
-		function(a){
-			var data=JSON.parse(a);
-
-			if (data.success) {
-				alert("数据删除成功");
-				$(_this.parent().parent()).remove();
-			}
-			else{alert("数据删除失败")};
-		});
-	};
-});
 //社会实践添加－保存按钮
 $("#add_data_prac_save").on("click",function(){
 	var _this=$(this);
@@ -402,7 +381,7 @@ $("#add_data_prac_save").on("click",function(){
 								+"</td><td>"+data[i]['place']
 								+"</td><td>"+data[i]['content']
 								+"</td><td>"+data[i]['grade']
-								+"</td><td><a href='#' class='add_data_prac pull-right' data-toggle='modal' data-target='#change_prac' style='margin-right: 5px;'>修改</a><a href='#' class='del_data_prac pull-right' style='margin-right: 5px;'>删除</a></td></tr>"
+								+"</td><td><a href='#' class='change_data_prac pull-right' data-toggle='modal' data-target='#change_prac' style='margin-right: 5px;'>修改</a><a href='#' class='del_data_prac pull-right' style='margin-right: 5px;'>删除</a></td></tr>"
 								);
 						};
 						//修改社会实践
