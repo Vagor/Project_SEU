@@ -535,6 +535,8 @@
             $sql = "UPDATE social_activity SET tid = $tid,time = $time,type = $type,score = $score,location = $location,content = $content semester = $semester WHERE id = $id";
             if(!mysql_query($sql))
                 return 0;
+            else 
+                return 1;
         }else{
             return 0;
         }
@@ -744,23 +746,23 @@
     function addMessage($uid,$type,$object)
     {
         if($type == 1 && $object == 1)
-            $str = "你有一条新的个人成绩被添加";
+            $str = "你有一条新的个人成绩于".date("Y-m-d",time())."被添加";
         else if($type == 1 && $object == 2)
-            $str = "你有一条个人成绩被修改";
+            $str = "你有一条个人成绩于".date("Y-m-d",time())."被修改";
         else if($type == 1 && $object == 3)
-            $str = "你有一条个人成绩被删除";
+            $str = "你有一条个人成绩于".date("Y-m-d",time())."被删除";
         else if($type == 2 && $object == 1)
-            $str = "你有一条科技竞赛记录被添加";
+            $str = "你有一条科技竞赛记录于".date("Y-m-d",time())."被添加";
         else if($type == 2 && $object == 2)
-            $str = "你有一条科技竞赛记录被修改";
+            $str = "你有一条科技竞赛记录于".date("Y-m-d",time())."被修改";
         else if($type == 2 && $object == 3)
-            $str = "你有一条科技竞赛记录被删除";
+            $str = "你有一条科技竞赛记录于".date("Y-m-d",time())."被删除";
         else if($type == 3 && $object == 1)
-            $str = "你有一条社会实践记录被添加";
+            $str = "你有一条社会实践记录于".date("Y-m-d",time())."被添加";
         else if($type == 3 && $object == 2)
-            $str = "你有一条社会实践记录被修改";
+            $str = "你有一条社会实践记录于".date("Y-m-d",time())."被修改";
         else if($type == 3 && $object == 3)
-            $str = "你有一条社会实践记录被删除";
+            $str = "你有一条社会实践记录于".date("Y-m-d",time())."被删除";
         
         $sql = "INSERT INTO unread(uid,message,status) VALUES($uid,'$str',1)";
         if(mysql_query($sql))
@@ -812,7 +814,7 @@
         $arr = mysql_fetch_assoc($res);
         $back = array(
                 "message" => $arr["message"],
-                "time" => date("Y-m-d H:i",$arr["time"])
+               // "time" => date("Y-m-d H:i",$arr["time"])
             );
         return $back;
     }

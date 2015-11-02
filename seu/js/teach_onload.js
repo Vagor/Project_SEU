@@ -42,6 +42,7 @@ $(function(){
 	"./php/stuInfro.php",
 	{},function(a){
 		var data= JSON.parse(a);
+		//个人成绩页面的年级检索下拉框
 		var year = data.year;//入学年份
 			$("#select_term,#add_data_grade_term").append("<option value=1 selected='selected'>"+parseInt(year)
 			+"年秋季</option><option value=2>"+(++year)
@@ -51,7 +52,22 @@ $(function(){
 			+"年秋季</option><option value=6>"+(++year)
 			+"年春季</option><option value=7>"+(year)
 			+"年秋季</option><option value=8>"+(++year)
-			+"年春季</option>");//个人成绩页面的年级检索下拉框
+			+"年春季</option>");
+			//加载个人成绩，添加框内的学科
+			$.post(
+			"./php/returnClass.php",
+			{
+				term:$("#add_data_grade_term option:selected").val(),
+				kind:$("#add_data_grade_kind option:selected").val()
+			},function(a){
+				var data = JSON.parse(a);
+				$("#add_data_grade_course").empty();//清空course下拉框
+				for (i in data) {
+					$("#add_data_grade_course").append("<option><a href='#'>"+
+						data[i]+"</a></option>"); 
+				};
+			});
+
 
 		$('#username').append(data.name +"<span class='caret'></span>");
 
