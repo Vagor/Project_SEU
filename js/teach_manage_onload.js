@@ -38,6 +38,6 @@ $('#stu_search').click(function(){
 
 $(".logout").on("click",function(){
 	if (confirm("确定要退出账号吗？")) {
-	$(".logout").attr("href", './login/login.php');
+	$(".logout").attr("href", './php/logout.php');
 	};
 })

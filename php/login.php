@@ -23,9 +23,10 @@
 		$res2 = mysql_query($sql2);
 		if(mysql_num_rows($res2))
 		{
-			$tid = @mysql_fetch_assoc($res)["id"];
+			$tid = @mysql_fetch_assoc($res2)["id"];
 			session_start();
 			$_SESSION["tid"] = $tid;
+
 			urlChange("../teach_manage.php");
 		}
 	}

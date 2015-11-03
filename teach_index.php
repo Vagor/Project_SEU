@@ -1,6 +1,13 @@
 <?php 
 	session_start();
-	$_SESSION["uid"] = $_GET["uid"];
+  if(!isset($_SESSION["tid"]))
+  {
+    include './php/fun.inc.php';
+    urlChange("./login/login.php");
+    die();
+  }
+
+	$_SESSION["uid"] = $_GET['uid'];
 ?>
    <!DOCTYPE html>
    <html lang="zh-CN">
@@ -173,7 +180,7 @@
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main tab-pane" id="content_grade" style="display: none;">
 
 
-            <div action="" class="course-search pull-right" style="margin-top: 10px;" >
+            <div action="" class="course-search pull-right" style="" >
               <select type="button" class="btn btn-default dropdown-toggle btn-lg course-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_term">
               </select>
               <select type="button" class="btn btn-default dropdown-toggle btn-lg course-kind pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_kind">

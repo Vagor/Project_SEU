@@ -21,7 +21,7 @@
 	$score = $_POST["grade"];
 	$location = $_POST["place"];
 	$content = $_POST["content"];
-	
+	//echo $id.$uid.$tid.$time.$type.$score.$location.$content;
 	$res = updateSocialElement($id,$uid,$tid,$time,$type,$score,$location,$content);
 	$data = array("success" => $res);
 	echo json_encode($data,JSON_UNESCAPED_UNICODE);

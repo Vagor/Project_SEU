@@ -1,3 +1,6 @@
+*{
+  font-family: 'SimHei';
+}
 .sidebar {
     position: fixed;
     top: 32px;

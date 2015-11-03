@@ -5,6 +5,7 @@
 	linkDB();
 	$uid = $_SESSION["uid"];
 	$data = returnMessage($uid);
-	echo json_encode($data,JSON_UNESCAPED_UNICODE);
 	removeMessage($uid);
+	echo json_encode($data,JSON_UNESCAPED_UNICODE);
+	
 ?>

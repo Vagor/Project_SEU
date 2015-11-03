@@ -188,7 +188,7 @@ $(function(){
 //登出
 $(".logout").click(function(){
 	if (confirm("确定要退出账号吗？")) {
-	$(".logout").attr("href", './login/login.php');
+	$(".logout").attr("href", './php/logout.php');
 	};
 });
 
@@ -200,11 +200,10 @@ $(function(){
 		if (data.length==0) {$("#msgnum").html("0");}
 		else{
 			$("#msgnum").html(data.length);
-			$("#msgbox").append('<ul class="dropdown-menu">');
+			$("#msgbox").append('<ul class="dropdown-menu"></ul>');
 			for (var i = 0; i < data.length; i++) {
-				$("#msgbox").append("<li>"+data[i]+"</li>")
+				$("#msgbox ul").append("<li><a>"+data[i]+"</a></li>")
 			};
-			$("#msgbox").append('</ul>');
 		};
 	});
 });

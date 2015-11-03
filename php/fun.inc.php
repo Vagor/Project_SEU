@@ -337,6 +337,7 @@
         }else{
             $sql4 = "INSERT INTO score(uid,sci_score,semester) VALUES($uid,$sum,$semester)";
         } 
+
         mysql_query($sql4);
     }
 
@@ -406,7 +407,7 @@
             $uid = check_input($uid);
             $tid = check_input($tid);
             $name = check_input($name);
-            $time = check_input($time);
+            //$time = check_input($time);
             $result = check_input($result);
             $score = check_input($score);
             $type = check_input($type);
@@ -416,7 +417,12 @@
             $year = mysql_fetch_assoc($res)["year"];
             $semester = returnSemester($time,$year);
 
-            $sql = "INSERT INTO science(uid,tid,name,time,result,score,type,semester) VALUES($uid,$tid,$name,$time,$result,$score,$type,$semester)";
+            if($year > date("Y",strtotime($time)))
+                return 0;
+
+
+            $sql = "INSERT INTO science(uid,tid,name,time,result,score,type,semester) VALUES($uid,$tid,$name,'$time',$result,$score,$type,$semester)";
+
             if(mysql_query($sql))
             {
                 updateSciScore($uid,$semester);
@@ -439,16 +445,20 @@
         {
             $id = check_input($id);
             $name = check_input($name);
-            $time = check_input($time);
+           // $time = check_input($time);
             $result = check_input($result);
             $score = check_input($score);
             $type = check_input($type);
 
             $year = returnYear($uid);
+
+            if($year > date("Y",strtotime($time)))
+                return 0;
+
             $semester = returnSemester($time,$year);
 
-
-            $sql = "UPDATE science SET name = $name,time = $time,result = $result,score = $score,type = $type,semester = $semester WHERE id = $id";
+            $sql = "UPDATE science SET name = $name,time = '$time',result = $result,score = $score,type = $type,semester = $semester WHERE id = $id";
+            
             if(mysql_query($sql))
             {
                 updateSciScore($uid,$semester);
@@ -491,7 +501,7 @@
         {
             $uid = check_input($uid);
             $tid = check_input($tid);
-            $time = check_input($time);
+           // $time = check_input($time);
             $location = check_input($location);
             $content = check_input($content);
             $score = check_input($score);
@@ -502,7 +512,10 @@
             $year = mysql_fetch_assoc($res)["year"];
             $semester = returnSemester($time,$year);
 
-            $sql = "INSERT INTO social_activity(uid,tid,time,location,content,score,type,semester) VALUES($uid,$tid,$time,$location,$content,$score,$type,$semester)";
+            if($year > date("Y",strtotime($time)))
+                return 0;
+
+            $sql = "INSERT INTO social_activity(uid,tid,time,location,content,score,type,semester) VALUES($uid,$tid,'$time',$location,$content,$score,$type,$semester)";
             if(mysql_query($sql))
             {
                 updateSocialScore($uid,$semester);
@@ -523,7 +536,7 @@
         {
             $id = check_input($id);
             $tid = check_input($tid);
-            $time = check_input($time);
+           // $time = check_input($time);
             $type = check_input($type);
             $score = check_input($score);
             $location = check_input($location);
@@ -532,13 +545,15 @@
             $year = returnYear($uid);
             $semester = returnSemester($time,$year);
 
-            $sql = "UPDATE social_activity SET tid = $tid,time = $time,type = $type,score = $score,location = $location,content = $content semester = $semester WHERE id = $id";
+            if($year > date("Y",strtotime($time)))
+                return 0;
+
+            $sql = "UPDATE social_activity SET tid = $tid,time = '$time',type = $type,score = $score,location = $location,content = $content,semester = $semester WHERE id = $id";
             if(!mysql_query($sql))
                 return 0;
-            else 
-                return 1;
+            
         }else{
-            return 0;
+            return 3;
         }
         $sql = "SELECT uid,semester FROM social_activity WHERE id = $id";
         $res = mysql_query($sql);
@@ -743,7 +758,7 @@
         $object = 3 => 社会实践
 
     */
-    function addMessage($uid,$type,$object)
+    function addMessage($uid,$object,$type)
     {
         if($type == 1 && $object == 1)
             $str = "你有一条新的个人成绩于".date("Y-m-d",time())."被添加";
@@ -809,13 +824,13 @@
 
     function returnMessage($uid)
     {
-        $sql = "SELECT message,time FROM unread WHERE uid = $uid";
+        $sql = "SELECT message FROM unread WHERE uid = $uid AND status = 1";
         $res = mysql_query($sql);
-        $arr = mysql_fetch_assoc($res);
-        $back = array(
-                "message" => $arr["message"],
-               // "time" => date("Y-m-d H:i",$arr["time"])
-            );
+        $num = 0;
+        while($arr = @mysql_fetch_assoc($res))
+        {
+        	$back[$num++] = $arr["message"];
+        }	
         return $back;
     }
 
@@ -847,7 +862,10 @@
 		}
 		return $semester;
 	}
-	
+
+
+
+
     //由学院中文名返回对应专业
     function returnMajor($college_name)
     {
@@ -879,8 +897,8 @@
         $a = 5 - $num % 5;
         while($a--)
         {
-            $back[$num]["uid"] = "  ";
-            $back[$num++]["name"] = "       ";        
+            $back[$num]["uid"] = "	";
+            $back[$num++]["name"] = "	";        
         }
 
         return $back;

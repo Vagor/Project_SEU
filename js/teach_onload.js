@@ -2,7 +2,7 @@
 //登出
 $(".logout").on("click",function(){
 	if (confirm("确定要退出账号吗？")) {
-	$(".logout").attr("href", './login/login.php');
+	$(".logout").attr("href", './php/logout.php');
 	};
 });
 //选择左侧边栏，显示页面

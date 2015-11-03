@@ -1,9 +1,12 @@
 <?php 
 	session_start();
-	$_SESSION["uid"] = 1;
-
-  $_SESSION["tid"] = 1;
-?>
+  if(!isset($_SESSION["tid"]))
+  {
+    include './php/fun.inc.php';
+    urlChange("./login/login.php");
+    die();
+  }
+  ?>
    <!DOCTYPE html>
    <html lang="zh-CN">
    <head>
@@ -62,7 +65,7 @@
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main tab-pane" id="content_grade">
 
       
-            <div action="" class="course-search pull-right" style="margin-top: 10px;" >
+            <div action="" class="course-search pull-right" style="" >
 
               <select type="button" class="btn btn-default dropdown-toggle btn-lg course-kind pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_year">
                 <option><a href="#" value=1 selected="selected">入学年份</a></option>
@@ -84,7 +87,7 @@
                 <option><a href="#" value=7>社会学院</a></option>
                 <option><a href="#" value=8>法学院</a></option>
               </select>
-              <select type="button" class="btn btn-default dropdown-toggle btn-lg course-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_major">
+              <select type="button"  style="height: 45px;" class="btn btn-default dropdown-toggle btn-lg course-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_major">
               <option><a href="#" value=1 selected="selected">&nbsp;专业&nbsp;</a></option>
               </select>
               <select type="button" class="btn btn-default dropdown-toggle btn-lg pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_class">

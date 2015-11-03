@@ -6,24 +6,14 @@
 
 	$uid = $_SESSION["uid"];
 	$tid = $_SESSION["tid"];
-	$name = $_POST["name"];
-	$time = $_POST["time"];
-	$result = $_POST["result"];
+	$time = $_POST["date"];
+	$location = $_POST["place"];
 	$score = $_POST["grade"];
 	$type = $_POST["kind"];
-	$semester = 1;
-/*
+	$content = $_POST["content"];
 	
-	$uid = 1;
-	$tid = 1;
-	$name = "test2";
-	$time = "2015-8-6";
-	$result = "test2";
-	$score = 77;
-	$type = 1;
-	$semester = 1;
-*/	
-	$back = insertSciElement($uid,$tid,$name,$time,$result,$score,$type,$semester);
+
+	$back = insertSocialElement($uid,$tid,$time,$location,$content,$score,$type);
 	$data = array(
 			"success" => $back
 		);
