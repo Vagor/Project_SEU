@@ -1,6 +1,9 @@
 *{
   font-family: 'SimHei';
 }
+.modal select{
+    padding: 6px 12px;
+}
 .sidebar {
     position: fixed;
     top: 32px;

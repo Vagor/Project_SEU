@@ -212,7 +212,7 @@
                   </thead>
                       <!-- 添加Modal -->
                       <div class="modal fade add_data_grade" id="add_grade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                        <div class="modal-dialog" role="document" style="width: 420px;">
+                        <div class="modal-dialog" role="document" style="width: 430px;">
                           <div class="modal-content">
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
