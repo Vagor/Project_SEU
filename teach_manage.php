@@ -88,7 +88,7 @@
                 <option><a href="#" value=8>法学院</a></option>
               </select>
               <select type="button"  style="height: 45px;" class="btn btn-default dropdown-toggle btn-lg course-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_major">
-              <option><a href="#" value=1 selected="selected">&nbsp;专业&nbsp;</a></option>
+              <option><a href="#" value=1 selected="selected">专业</a></option>
               </select>
               <select type="button" class="btn btn-default dropdown-toggle btn-lg pull-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="select_class">
                 <option><a href="#" selected="selected">班级</a></option>
