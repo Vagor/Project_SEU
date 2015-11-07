@@ -7,14 +7,14 @@ $(function(){
 		var data= JSON.parse(a);
 		var year = data.year;//入学年份
 			$("#select_term,#add_data_grade_term").append("<option value=1 selected='selected'>"+parseInt(year)
-			+"年秋季</option><option value=2>"+(++year)
-			+"年春季</option><option value=3>"+(year)
-			+"年秋季</option><option value=4>"+(++year)
-			+"年春季</option><option value=5>"+(year)
-			+"年秋季</option><option value=6>"+(++year)
-			+"年春季</option><option value=7>"+(year)
-			+"年秋季</option><option value=8>"+(++year)
-			+"年春季</option>");//个人成绩页面的年级检索下拉框
+			+"学年第一学期</option><option value=2>"+(year)
+			+"学年第二学期</option><option value=3>"+(++year)
+			+"学年第一学期</option><option value=4>"+(year)
+			+"学年第二学期</option><option value=5>"+(++year)
+			+"学年第一学期</option><option value=6>"+(year)
+			+"学年第二学期</option><option value=7>"+(++year)
+			+"学年第一学期</option><option value=8>"+(year)
+			+"学年第二学期</option>");//个人成绩页面的年级检索下拉框
 
 		$('#username').append(data.name +"<span class='caret'></span>");
 

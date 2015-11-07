@@ -45,14 +45,14 @@ $(function(){
 		//个人成绩页面的年级检索下拉框
 		var year = data.year;//入学年份
 			$("#select_term,#add_data_grade_term").append("<option value=1 selected='selected'>"+parseInt(year)
-			+"年秋季</option><option value=2>"+(++year)
-			+"年春季</option><option value=3>"+(year)
-			+"年秋季</option><option value=4>"+(++year)
-			+"年春季</option><option value=5>"+(year)
-			+"年秋季</option><option value=6>"+(++year)
-			+"年春季</option><option value=7>"+(year)
-			+"年秋季</option><option value=8>"+(++year)
-			+"年春季</option>");
+			+"学年第一学期</option><option value=2>"+(year)
+			+"学年第二学期</option><option value=3>"+(++year)
+			+"学年第一学期</option><option value=4>"+(year)
+			+"学年第二学期</option><option value=5>"+(++year)
+			+"学年第一学期</option><option value=6>"+(year)
+			+"学年第二学期</option><option value=7>"+(++year)
+			+"学年第一学期</option><option value=8>"+(year)
+			+"学年第二学期</option>");
 			//加载个人成绩，添加框内的学科
 			$.post(
 			"./php/returnClass.php",
