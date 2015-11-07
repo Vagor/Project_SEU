@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+  session_start();
   if(!isset($_SESSION["tid"]))
   {
     include './php/fun.inc.php';
@@ -82,7 +82,7 @@
                 <option><a href="#" value=2>电气学院</a></option>
                 <option><a href="#" value=3>自动化学院</a></option>
                 <option><a href="#" value=4>生科学院</a></option>
-                <option><a href="#" value=5>电信学院</a></option>
+                <option><a href="#" value=5>数学系</a></option>
                 <option><a href="#" value=6>马克思学院</a></option>
                 <option><a href="#" value=7>社会学院</a></option>
                 <option><a href="#" value=8>法学院</a></option>

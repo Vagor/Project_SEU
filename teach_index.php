@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+  session_start();
   if(!isset($_SESSION["tid"]))
   {
     include './php/fun.inc.php';
@@ -7,7 +7,7 @@
     die();
   }
 
-	$_SESSION["uid"] = $_GET['uid'];
+  $_SESSION["uid"] = $_GET['uid'];
 ?>
    <!DOCTYPE html>
    <html lang="zh-CN">

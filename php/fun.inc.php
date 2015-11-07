@@ -31,18 +31,21 @@
 
     function linkDB()
     {
-    	//链接数据库
-	    @$link = mysql_connect("127.0.0.1","root","");
-	    if(!$link)  
-	    {  
-	      echo "mysql connect failed";
-	    }	
 
-	    //设置数据库编码	
-	    mysql_query("set names utf8");
-	    
-	    //选择数据库
-	    mysql_select_db("seu",$link);
+        error_reporting(E_ERROR&E_WARNING&E_PARSE&E_NOTICE);
+        // 连主库
+        $link=mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+        
+        // 连从库
+        // $link=mysql_connect(SAE_MYSQL_HOST_S.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+        
+        if($link)
+        {
+            mysql_select_db(SAE_MYSQL_DB,$link);
+            mysql_query("set names 'utf8'");
+            //your code goes here
+        }
+
     }
     //由学期，课程类型得到数据库表名称
     function getTableName($semester,$class_type)
@@ -218,32 +221,35 @@
         {
             if($num == 0)
             {
-                $str["$num"] = $year."年第一学期";
+                $str["$num"] = $year."学年第一学期";
             }else if($num == 1)
             {
-                $year++;
-                $str["$num"] = $year."年第二学期";
+                
+                $str["$num"] = $year."学年第二学期";
             }else if($num == 2)
             {
-                $str["$num"] = $year."年第一学期";
+                $year++;
+                $str["$num"] = $year."学年第一学期";
             }else if($num == 3)
             {
-                $year++;
-                $str["$num"] = $year."年第二学期";
+                
+                $str["$num"] = $year."学年第二学期";
             }else if($num == 4)
             {
-                $str["$num"] = $year."年第一学期";
+                $year++;
+                $str["$num"] = $year."学年第一学期";
             }else if($num == 5)
             {
-                $year++;
-                $str["$num"] = $year."年第二学期";
+               
+                $str["$num"] = $year."学年第二学期";
             }else if($num == 6)
             {
-                $str["$num"] = $year."年第一学期";
+                 $year++;
+                $str["$num"] = $year."学年第一学期";
             }else if($num == 7)
             {
-                $year++;
-                $str["$num"] = $year."年第二学期";
+                
+                $str["$num"] = $year."学年第二学期";
             }
 
         }
@@ -256,12 +262,12 @@
     function getElement($uid)
     {
 
-    	$sql = "SELECT year FROM student WHERE uid = $uid";
+        $sql = "SELECT year FROM student WHERE uid = $uid";
         $res = mysql_query($sql);
         $year = mysql_fetch_assoc($res)["year"];
-       	$semester = returnSemester(date("Y-m-d",time()),$year);
-       	$sql = "UPDATE student SET semester = $semester WHERE uid = $uid";
-       	mysql_query($sql);
+        $semester = returnSemester(date("Y-m-d",time()),$year);
+        $sql = "UPDATE student SET semester = $semester WHERE uid = $uid";
+        mysql_query($sql);
 
 
         $sql = "SELECT * FROM student WHERE uid = $uid";
@@ -652,9 +658,9 @@
         $sql = "SELECT id FROM $table WHERE uid = $uid";
         $res = mysql_query($sql);
         if(@mysql_fetch_assoc($res)["id"])
-        	$sql = "UPDATE $table SET $class_type = $score WHERE uid = $uid";
+            $sql = "UPDATE $table SET $class_type = $score WHERE uid = $uid";
         else
-        	$sql = "INSERT INTO $table(uid,$class_type) VALUES($uid,$score)";
+            $sql = "INSERT INTO $table(uid,$class_type) VALUES($uid,$score)";
         if(mysql_query($sql))
         {
             addMessage($uid,1,1);
@@ -670,74 +676,83 @@
     //根据学分，学期，课程类型中文名，判断是否修改该类型科目加权值，并修改
     function addAverage($uid,$semester,$type_name)
     {
-    	$average = 0;
-    	$credit = 0;
-    	//$type = getClassTypeByTypeName($type_name);
+        $average = 0;
+        $credit = 0;
+        //$type = getClassTypeByTypeName($type_name);
         $type = $type_name;
-    	$table = getTableName($semester,$type);
-    	$sql = "SELECT name,credit FROM class WHERE semester = $semester AND class_type = $type";
-    	$res = mysql_query($sql);
-    	while($arr = @mysql_fetch_assoc($res))
-    	{
-    		$class_name = $arr["name"];
-    		$sql2 = "SELECT $class_name FROM $table WHERE uid = $uid";
-    		$res2 = mysql_query($sql2);
-    		$arr2 = @mysql_fetch_assoc($res2);
-    		if($arr2[$class_name])
-    		{
-	    		$average += $arr2[$class_name] * $arr["credit"];
-	    		$credit += $arr["credit"];
-	    	}
+        $table = getTableName($semester,$type);
+        $sql = "SELECT name,credit FROM class WHERE semester = $semester AND class_type = $type";
+        $res = mysql_query($sql);
+        while($arr = @mysql_fetch_assoc($res))
+        {
+            $class_name = $arr["name"];
+            $sql2 = "SELECT $class_name FROM $table WHERE uid = $uid";
+            $res2 = mysql_query($sql2);
+            $arr2 = @mysql_fetch_assoc($res2);
+            if($arr2[$class_name])
+            {
+                $average += $arr2[$class_name] * $arr["credit"];
+                $credit += $arr["credit"];
+            }
            
-    	}
-    	if($credit == 0)
+        }
+        if($credit == 0)
             $average = 0;
-    	else 
+        else 
             $average = $average / $credit;
         
 
-    	$sql3 = "UPDATE $table SET average = $average WHERE uid = $uid";
-    	
+        $sql3 = "UPDATE $table SET average = $average WHERE uid = $uid";
+        
         mysql_query($sql3);
     }
 
     //判断各种类型课程的加权平均分是否均存在，若存在，则在score表中添加class_score值
     function addClassScore($uid,$semester)
     {
-    	$sum = 0;
-    	$sql = "SELECT id,ratio FROM class_type";
-    	$res = mysql_query($sql);
-    	while($arr = @mysql_fetch_assoc($res))
-    	{
-    		$table = getTableName($semester,$arr["id"]);
-    		$sql2 = "SELECT average FROM $table WHERE uid = $uid";
-    		$res2 = mysql_query($sql2);
-    		$arr2 = @mysql_fetch_assoc($res2);
-    		if($arr2["average"])
-    			$sum += $arr2["average"] * $arr["ratio"];
-    		else{
-    			$sum = 0;
-    			break;
-    		}
-    	}
-    	
-    	$sql3 = "UPDATE score SET class_score = $sum WHERE uid = $uid AND semester = $semester";
-
-    	mysql_query($sql3);
+        $sum = 0;
+        $sql = "SELECT id,ratio FROM class_type";
+        $res = mysql_query($sql);
+        while($arr = @mysql_fetch_assoc($res))
+        {
+            $table = getTableName($semester,$arr["id"]);
+            $sql2 = "SELECT average FROM $table WHERE uid = $uid";
+            $res2 = mysql_query($sql2);
+            $arr2 = @mysql_fetch_assoc($res2);
+            if($arr2["average"])
+                $sum += $arr2["average"] * $arr["ratio"];
+            else{
+                $sum = 0;
+                break;
+            }
+        }
+        
+        $sql4 = "SELECT * FROM score WHERE uid = $uid AND semester = $semester";
+        if(!mysql_query($sql4))
+        {
+            $sql5 = "INSERT INTO score(uid,class_score,semester) VALUES($uid,$sum,$semester)";
+            mysql_query($sql5);
+        }else{
+        
+            $sql3 = "UPDATE score SET class_score = $sum WHERE uid = $uid AND semester = $semester";
+    
+            mysql_query($sql3);
+        
+        }
     }
 
     //判断三种成绩是否均存在，若存在，则在score表中添加sum_score值
     function addSumScore($uid,$semester)
     {
-    	$sql = "SELECT class_score,sci_score,social_score FROM score WHERE uid= $uid AND semester = $semester";
-    	$res = mysql_query($sql);
-    	$arr = @mysql_fetch_assoc($res);
-    	if($arr["class_score"] && $arr["sci_score"] && $arr["social_score"])
-    	{
-    		$sum = $arr["class_score"] + $arr["sci_score"] + $arr["social_score"];
-    		$sql = "UPDATE score SET sum_score = $sum WHERE uid = $uid AND semester = $semester";
+        $sql = "SELECT class_score,sci_score,social_score FROM score WHERE uid= $uid AND semester = $semester";
+        $res = mysql_query($sql);
+        $arr = @mysql_fetch_assoc($res);
+        if($arr["class_score"] && $arr["sci_score"] && $arr["social_score"])
+        {
+            $sum = $arr["class_score"] + $arr["sci_score"] + $arr["social_score"];
+            $sql = "UPDATE score SET sum_score = $sum WHERE uid = $uid AND semester = $semester";
             mysql_query($sql);
-    	}
+        }
     }
 
     //
@@ -829,8 +844,8 @@
         $num = 0;
         while($arr = @mysql_fetch_assoc($res))
         {
-        	$back[$num++] = $arr["message"];
-        }	
+            $back[$num++] = $arr["message"];
+        }   
         return $back;
     }
 
@@ -843,25 +858,29 @@
             return 0;
     }
 
-	//根据入学年份返回学期对应数字1-8
-	function returnSemester($time,$year)
-	{
-		$now = date("Y",strtotime($time));
-		$semester = $now - $year;
-		$month = date("m",strtotime($time));
-		if($semester > 1)
-			$semester = $semester*2 - 1;
-		if($semester)
-		{
-			if($month < 9)
-				$semester++;
-			else if($month >= 9)
-				$semester += 2;
-		}else{
-			$semester = 1;
-		}
-		return $semester;
-	}
+    //根据入学年份返回学期对应数字1-8
+    function returnSemester($time,$year)
+    {
+        $s_year = date("Y",strtotime($time));
+        $s_month = date("m",strtotime($time));
+        if($s_year == $year || ($s_year == ($year + 1) && ($s_month < 3)))
+            return 1;
+        if($s_year == ($year + 1) && $s_month >2 && $s_month < 9)
+            return 2;
+        if($s_year == ($year + 1) || ($s_year == ($year + 2) && ($s_month < 3)))
+            return 3;
+        if($s_year == ($year + 2) && $s_month >2 && $s_month < 9)
+            return 4;
+        if($s_year == ($year + 2) || ($s_year == ($year + 3) && ($s_month < 3)))
+            return 5;
+        if($s_year == ($year + 3) && $s_month >2 && $s_month < 9)
+            return 6;
+        if($s_year == ($year + 3) || ($s_year == ($year + 4) && ($s_month < 3)))
+            return 7;
+        if($s_year == ($year + 8) && $s_month >2 && $s_month < 9)
+            return 8;
+        return 1;
+    }
 
 
 
@@ -897,8 +916,8 @@
         $a = 5 - $num % 5;
         while($a--)
         {
-            $back[$num]["uid"] = "	";
-            $back[$num++]["name"] = "	";        
+            $back[$num]["uid"] = "  ";
+            $back[$num++]["name"] = "   ";        
         }
 
         return $back;

@@ -1,4 +1,4 @@
-  <?php 
+<?php 
   session_start();
   
   if(!isset($_SESSION["uid"]))
@@ -7,7 +7,7 @@
     urlChange("./login/login.php");
     die();
   }
-   ?>
+ ?>
    <!DOCTYPE html>
    <html lang="zh-CN">
    <head>
