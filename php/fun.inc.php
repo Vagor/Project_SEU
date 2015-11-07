@@ -29,23 +29,20 @@
 
 
 
-    function linkDB()
+     function linkDB()
     {
+        //链接数据库，账号密码填自己的
+        @$link = mysql_connect("127.0.0.1","root","");
+        if(!$link)  
+        {  
+          echo "mysql connect failed";
+        }   
 
-        error_reporting(E_ERROR&E_WARNING&E_PARSE&E_NOTICE);
-        // 连主库
-        $link=mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+        //设置数据库编码   
+        mysql_query("set names utf8");
         
-        // 连从库
-        // $link=mysql_connect(SAE_MYSQL_HOST_S.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
-        
-        if($link)
-        {
-            mysql_select_db(SAE_MYSQL_DB,$link);
-            mysql_query("set names 'utf8'");
-            //your code goes here
-        }
-
+        //选择数据库，自己填数据库名字
+        mysql_select_db("seu_tlw",$link);
     }
     //由学期，课程类型得到数据库表名称
     function getTableName($semester,$class_type)

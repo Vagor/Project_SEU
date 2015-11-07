@@ -11,5 +11,5 @@
     mysql_query("set names utf8");
     
     //选择数据库
-    mysql_select_db("seu",$link);                            
+    mysql_select_db("seu_tlw",$link);                            
 ?>
