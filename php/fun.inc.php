@@ -32,7 +32,7 @@
      function linkDB()
     {
         //链接数据库，账号密码填自己的
-        @$link = mysql_connect("127.0.0.1","root","");
+        @$link = mysql_connect("127.0.0.1","root","123456");
         if(!$link)  
         {  
           echo "mysql connect failed";
